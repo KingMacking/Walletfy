@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import logoFooter from '../../assets/walletfy-logo-text-b.svg'
 
+// TODO: Hacer que el body siempre tenga 100vh y poner el footer siempre abajo
+
 const Footer = () => {
     return (
-        <footer className='bg-white w-full'>
-            <nav className='flex flex-col md:flex-row md:justify-around justify-start items-start w-full px-5 py-3'>
+        <footer className='bg-base w-full'>
+            <nav className='flex flex-col md:flex-row md:justify-around justify-start items-start w-full px-5 py-10'>
                 <div className='self-start md:self-center md:my-0 my-5 w-60'>
                     <Link><img className='w-full' src={logoFooter} alt="Logo walletfy" /></Link>
                 </div>
@@ -42,9 +44,6 @@ const Footer = () => {
                     </li>
                 </ul>
             </nav>
-            <div>
-
-            </div>
         </footer>
     )
 }
