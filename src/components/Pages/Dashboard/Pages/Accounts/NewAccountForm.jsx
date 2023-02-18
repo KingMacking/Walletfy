@@ -24,7 +24,7 @@ const NewAccountForm = () => {
         if (category === "bank") {
             setCurrencies([{name: "USD", label: "Dolar EE.UU."}, {name: "ARS", label: "Pesos argentinos"}, {name: "EUR", label: "Euros"}])
         } else if (category === "crypto") {
-            setCurrencies([{name: "BTC", label: "Bitcoin"}, {name: "ETH", label: "Ethereum"}, {name: "USDT", label: "Tether"}, {name: "BNB", label: "BNB"}, {name: "USDC", label: "USD Coin"}, {name: "XRP", label: "XRP"}, {name: "ADA", label: "Cardano"}, {name: "DOGE", label: "Dogecoin"} ])
+            setCurrencies([{name: "BTC", label: "Bitcoin"}, {name: "ETH", label: "Ethereum"}, {name: "USDT", label: "Tether"}, {name: "USDC", label: "USD Coin"}, {name: "XRP", label: "XRP"}, {name: "DOGE", label: "Dogecoin"} ])
         } else if (category === "cash") {
             setCurrencies([{name: "USD", label: "Dolar EE.UU."}, {name: "ARS", label: "Pesos argentinos"}, {name: "EUR", label: "Euros"}])
         } else if (category === "virtual-wallet") {

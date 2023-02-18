@@ -11,27 +11,18 @@ const TotalBalance = () => {
     const {user} = useUserContext()
     const currenciesData = useOutletContext()
     console.log(currenciesData);
-    fx.base = "BTC"
-    fx.rates = currenciesData
-    
+    fx.base = "USD"
+    // fx.rates = currenciesData || {"USD":24598.97,"BTC":1,"EUR":22877.04,"GBP":20425.93,"PLN":108390.86,"CZK":540666.98,"SEK":252912.0,"NOK":252912.0,"DKK":175092.92,"CHF":22536.71,"ZAR":455241.6,"AUD":35565.75,"JPY":3251725.71,"NZD":39244.97,"TRY":458912.9,"BRL":126456.0,"CAD":32988.52,"CNY":162586.29,"HKD":189684.0,"HUF":8754646.15,"INR":2014343.36,"ILS":87546.46,"MYR":108390.86,"MXN":455241.6,"SGD":32517.26,"RON":113810.4,"IDR":227620800.0,"PHP":1346868.64,"ARS":4742100.0,"THB":836841.18,"NGN":11381040.0,"PKR":6503451.43,"AED":91048.32,"UAH":896144.88,"BGN":44631.53,"HRK":175092.92,"RSD":2677891.76,"LTC":248.0774,"ETH":14.6049,"BCH":182.5284,"XRP":62695.92,"CLP":18968400.0,"TRX":352113.0,"DAI":24608.57,"DOGE":280112.0,"BNB":78.2228,"USDT":24617.18,"BTCV":9050.59,"KRW":32517257.14,"EGP":746297.7,"SAR":91048.32,"QAR":87546.46,"USDC":24617.54,"ADA":60827.25,"BUSD":24611.82}
+    fx.rates = {...currenciesData, "USDT": 1, "USDC": 1}
     
     const getBalance = (accountCategory) => {
         let balance = 0
         const accounts = user.accounts.filter((account) => {
             return account.category === accountCategory
         })
-        const foreignAccounts = accounts.filter((account) => {
-            return account.currency !== "ARS"
+        accounts.forEach((account) => {
+            balance += fx.convert(account.balance, {from: account.currency, to: user.currency})
         })
-        if (foreignAccounts.length > 0) {
-            foreignAccounts.forEach((account) => {
-                return balance += fx.convert(account.balance, {from: account.currency, to: user.currency})
-            })
-        } else {
-            accounts.forEach((account) => {
-                return balance += account.balance
-            })
-        }
         return balance
     }
 
