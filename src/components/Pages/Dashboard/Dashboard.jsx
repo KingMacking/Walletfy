@@ -7,17 +7,7 @@ import { Waveform } from '@uiball/loaders'
 
 const Dashboard = () => {
     const {data: currenciesData, isLoading} = useQuery(["cryptos"], () => {
-        return (fetch('https://api.coingate.com/v2/rates/merchant', {headers: {Accept: "application/json"}})
-        .then(res=>res.json())
-        .then((data) => ({
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, OPTION",
-                "Content-Type": "application/json"
-            },
-            data: data
-        }))
-        )
+        return Axios.get('https://thingproxy.freeboard.io/fetch/https://api.coingate.com/v2/rates/merchant').then(res=>res.data)
     })
     return (
         <div className="flex h-auto">
