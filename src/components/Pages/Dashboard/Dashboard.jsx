@@ -7,7 +7,7 @@ import { Waveform } from '@uiball/loaders'
 
 const Dashboard = () => {
     const {data: currenciesData, isLoading} = useQuery(["cryptos"], () => {
-        return Axios.get('https://cors-anywhere.herokuapp.com/https://api.coingate.com/v2/rates/merchant').then(res=>res.data)
+        return Axios.get('https://api.coingate.com/v2/rates/merchant').then(res=>res.data)
     })
     return (
         <div className="flex h-auto">
