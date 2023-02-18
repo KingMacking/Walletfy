@@ -7,3 +7,8 @@
 *, *::after, *::before{
   box-sizing: border-box;
 }
+
+body {
+  min-height: 100vh;
+  height: auto;
+}

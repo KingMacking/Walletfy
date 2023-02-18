@@ -1,23 +1,26 @@
 import { useState, useContext, createContext } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
+import { doc, getDoc } from "firebase/firestore";
 const UserContext = createContext({})
 export const useUserContext = () => useContext(UserContext)
 
 const UserContextProvider = ({children}) => {
     const [user, setUser] = useState(null)
 
-    // const getUserInfo = async (uid) => {
-    //     const docInfo = await getDoc(doc(db, 'users', uid))
-    //     const userInfo = docInfo.data()
-    //     return userInfo
-    // }
+    const getUserData = async (uid) => {
+        const docInfo = await getDoc(doc(db, 'users', uid))
+        const userInfo = docInfo.data()
+        return userInfo
+    }
 
     onAuthStateChanged(auth, (firebaseUser) => {
         if (firebaseUser) {
             if (!user) {
-                    const userData = firebaseUser
-                    setUser(userData)
+                    getUserData(firebaseUser.uid)
+                    .then((data) => {
+                        setUser(data)
+                    })
                 }
             
         } else {

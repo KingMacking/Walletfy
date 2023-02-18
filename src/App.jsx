@@ -2,28 +2,41 @@ import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Dashboard from "./components/Pages/Dashboard/Dashboard";
+import Accounts from "./components/Pages/Dashboard/Pages/Accounts/Accounts";
+import Main from "./components/Pages/Dashboard/Pages/Main/Main";
 import Home from "./components/Pages/Home/Home";
 import Login from "./components/Pages/Login/Login";
 import Register from "./components/Pages/Register/Register";
-import UserContextProvider from "./context/UserContext";
+import { useUserContext } from "./context/UserContext";
+import ProtectedRoutes from "./hooks/ProtectedRoutes";
 
-import './App.css'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 function App() {
-
+    const {user} = useUserContext()
+    const client = new QueryClient({defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+        }
+    }})
     return (
-        <UserContextProvider>
-            <BrowserRouter>
-                <Navbar />
+        <>
+            <Navbar />
+            <QueryClientProvider client={client}>
                 <Routes>
                     <Route path="/" element={<Home />}/>
                     <Route path="/login" element={<Login />}/>
                     <Route path="/register" element={<Register />}/>
-                    <Route path="/dashboard" element={<Dashboard />}/>
+                    <Route element={<ProtectedRoutes user={user} />} >
+                        <Route path="/dashboard" element={<Dashboard />}>
+                            <Route path="main" element={<Main />} />
+                            <Route path="accounts" element= {<Accounts />} />
+                        </Route>
+                    </Route>
                 </Routes>
-                <Footer />
-            </BrowserRouter>
-        </UserContextProvider>
+            </QueryClientProvider>
+            <Footer />
+        </>
     );
 }
 

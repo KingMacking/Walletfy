@@ -3,7 +3,7 @@ import homeMainImg from '../../../assets/walletfy-home-img.svg'
 const Home = () => {
     return (
         <div className='px-15 py-12 bg-white h-fit'>
-            <div className='flex flex-col items-center justify-center gap-12 py-10 lg:flex-row lg:items-start'>
+            <div className='flex flex-col items-center justify-center gap-12 py-20 lg:flex-row lg:items-start'>
                 <div className='w-3/5 lg:w-[40%] xl:w-[30%] lg:mt-10 xl:mt-5'>
                     <img className='w-full' src={homeMainImg} alt="Girl with big wallet and coins"/>
                 </div>

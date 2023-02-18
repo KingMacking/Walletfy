@@ -1,21 +1,26 @@
-import { auth } from "../../../config/firebase";
-import { useUserContext } from "../../../context/UserContext";
-import Login from "../Login/Login";
+import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar/Sidebar";
+import { useQuery } from "@tanstack/react-query";
+import Axios from "axios";
+import { Waveform } from '@uiball/loaders'
+
 
 const Dashboard = () => {
-    const {user} = useUserContext()
-    if(user) {
-        const photo = user.photoURL
-        return (
-            <div>
-                <p>Bienvenido {user.email}</p>
-                <button className="bg-primary" onClick={()=>signOut(auth)}>Cerrar sesión</button>
-                <img src={photo} referrerPolicy="no-referrer" />
-            </div>
-        )
-    } else {
-        return <Login/>
-    }
+    const {data: currenciesData, isLoading} = useQuery(["cryptos"], () => {
+        return Axios.get('https://cors-anywhere.herokuapp.com/https://api.coingate.com/v2/rates/merchant').then(res=>res.data)
+    })
+    return (
+        <div className="flex h-auto">
+            {isLoading ? (
+                <Waveform className="justify-self-center self-center" size={80} lineWeight={5.5} speed={1} color="#372274" />
+            ) : (
+                <>
+                    <Sidebar />
+                    <Outlet context={currenciesData?.BTC} />
+                </>
+            )}
+        </div>
+    )
 }
 
 export default Dashboard
