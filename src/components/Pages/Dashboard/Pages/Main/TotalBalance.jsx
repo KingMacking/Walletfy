@@ -49,16 +49,19 @@ const TotalBalance = () => {
         ]
     }
     return (
-        <div className="shadow-lg rounded-xl bg-[#ffffff] p-6 sm:p-6 flex justify-center sm:justify-between w-fit gap-10 md:gap-6 flex-wrap max-w-[300px] sm:max-w-full ml-6">
-            <div className="w-full md:w-auto">
-                <h3 className="font-title text-2xl border-b border-primary-interact py-1 mb-4">Saldo total</h3>
-                <p className="font-text text-5xl">${(Math.round(totalBalance * 100) / 100).toFixed(2)}</p>
-            </div>
-            <div className="max-w-[300px]">
-                <Doughnut className="!flex !flex-col" data={data} options={{
-                    plugins:{legend:{position: "bottom", labels: {font: {family: "sans-serif", size: 14} }}},
-                    maintainAspectRatio: false
-                }}/>
+        <div className="p-6">
+            <div className="shadow-lg rounded-xl p-6 bg-[#ffffff] flex justify-center items-center md:items-start md:justify-between flex-col md:flex-row md:w-fit gap-10 md:gap-6 sm:max-w-full h-auto">
+                <div className="w-full md:w-auto">
+                    <h3 className="font-title text-2xl border-b border-primary-interact py-1 mb-4">Saldo total</h3>
+                    <p className="font-text text-5xl">${(Math.round(totalBalance * 100) / 100).toFixed(2)}</p>
+                </div>
+                <div className="w-auto">
+                    <Doughnut className="!flex !flex-col max-w-[250px]" data={data} options={{
+                        plugins:{legend:{position: "bottom", labels: {font: {family: "sans-serif", size: 12} }}},
+                        maintainAspectRatio: true,
+                        responsive: true
+                    }}/>
+                </div>
             </div>
         </div>
     )

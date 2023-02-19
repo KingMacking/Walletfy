@@ -3,7 +3,6 @@ import { signOut } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { auth } from '../../../../config/firebase'
-import { useUserContext } from '../../../../context/UserContext'
 
 import walletfyIcon from '../../../../assets/walletfy-logo-icon.svg'
 
@@ -33,7 +32,7 @@ const Sidebar = () => {
 
     if (sidebarVisibility) {
         return (
-            <div className={`bg-primary min-h-full  ${open ? 'w-80' : 'w-20'} text-white px-4 duration-500 -left-16 ${open && "-left-0"} sm:-left-0 fixed sm:relative`}>
+            <div className={`bg-primary min-h-full  ${open ? "w-80" : 'w-20'} text-white px-4 duration-500 -left-16 ${open && "-left-0"} sm:-left-0 fixed`}>
                 <Icon className={`text-3xl cursor-pointer bg-white text-primary rounded-full absolute -right-3 p-1 top-[26px] border-2 border-primary duration-500 ${open && "rotate-180"}`} onClick={()=> setOpen(!open)} icon="material-symbols:play-arrow-rounded" inline={true} />
                 <div className='mt-4 flex flex-col gap-4'>
                     <div className={`flex items-center p-2 gap-3 ${!open && "w-fit"}`}>

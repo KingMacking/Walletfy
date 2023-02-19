@@ -2,11 +2,6 @@ import { Link } from "react-router-dom"
 import { useUserContext } from "../../../../../../context/UserContext";
 import AccountCard from "./AccountCard";
 
-
-
-//TODO Buscar como realizar carrusel para las cuentas
-
-
 const Accounts = () => {
     const {user} = useUserContext()
     return (

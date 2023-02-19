@@ -9,16 +9,18 @@ const Dashboard = () => {
         return Axios.request('https://openexchangerates.org/api/latest.json?app_id=c0796e7967fd4da6979537610239de14&show_alternative=1').then(res => res.data)
     })
     return (
-        <div className="flex h-auto">
+        <>
             {isLoading ? (
-                <Waveform className="justify-self-center self-center" size={80} lineWeight={5.5} speed={1} color="#372274" />
+                <div className="flex justify-center items-center h-screen w-screen">
+                    <Waveform size={80} lineWeight={5.5} speed={1} color="#372274" />
+                </div>
             ) : (
-                <>
+                <div className="flex min-h-screen h-auto min-w-full">
                     <Sidebar />
                     <Outlet context={currenciesData?.rates} />
-                </>
+                </div>
             )}
-        </div>
+        </>
     )
 }
 

@@ -15,7 +15,7 @@ const accountCategoryIcon = (category) => {
 
 const AccountCard = ({account}) => {
     return (
-        <div className="flex flex-col shadow-lg rounded-xl bg-[#ffffff] p-4 w-fit min-w-[300px]">
+        <div className="flex flex-col shadow-lg rounded-xl bg-[#ffffff] p-4 min-w-[300px] w-full md:w-fit">
             <h2 className="flex gap-4 justify-start items-center font-title text-2xl border-b border-primary-interact py-2">
                 {<Icon className="text-white rounded-full bg-primary p-2 text-5xl" icon={accountCategoryIcon(account.category)} inline={true} />}
                 {account.name}

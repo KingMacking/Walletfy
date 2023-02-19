@@ -56,36 +56,51 @@ const NewAccountForm = () => {
 
     
     return (
-            <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
-                <input type="text" {...register("name")} placeholder="Nombre de la cuenta"/>
-                <p>{errors.name?.message}</p>
-                <select {...register("category", {onChange: (e) => {
-                    setCategory(e.target.value)
-                    setValue("category", e.target.value, {shouldValidate:true})
-                }})}>
-                    <option value="">Seleccionar tipo de cuenta</option>
-                    <option value="cash">Efectivo</option>
-                    <option value="bank">Cuenta bancaria</option>
-                    <option value="crypto">Crypto</option>
-                    <option value="virtual-wallet">Billetera virtual</option>
-                </select>
-                <p>{errors.category?.message}</p>
-                <select {...register("currency", {onChange: (e) => {
-                    setValue("currency", e.target.value, {shouldValidate:true})
-                }})}>
-                    <option value="">Elija la moneda de la cuenta</option>
-                    {currencies && currencies.map((currency) => {
-                        return (
-                        <option key={currency.name} value={currency.name}>
-                            {currency.label}
-                        </option>)
-                    })}
-                </select>
-                <p>{errors.currency?.message}</p>
-                <input type="text" {...register("balance")} placeholder="Balance de la cuenta"/>
-                <p>{errors.balance?.message}</p>
-                <button className="bg-primary" type="submit">Agregar cuenta</button>
+        <div>
+            <form className="flex flex-col p-4 sm:p-8 gap-4 bg-white shadow-lg rounded-xl w-[300px] sm:w-[350px] md:w-[600px] mx-6" onSubmit={handleSubmit(onSubmit)}>
+            <h2 className="text-center font-title text-3xl sm:text-4xl border-primary border-b-2 py-1 px-2 w-fit mx-auto mb-4">Nueva cuenta</h2>
+                <div>
+                    <h3 className="font-text text-md sm:text-xl mt-3 ml-1">Nombre de la cuenta</h3>
+                    <input className="font-text text-md sm:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" type="text" {...register("name")} placeholder="Efectivo, Banco Prueba, PayPal..."/>
+                    <p>{errors.name?.message}</p>
+                </div>
+                <div>
+                    <h3 className="font-text text-md sm:text-xl mt-3 ml-1">Tipo de cuenta</h3>
+                    <select className="font-text text-md sm:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" {...register("category", {onChange: (e) => {
+                        setCategory(e.target.value)
+                        setValue("category", e.target.value, {shouldValidate:true})
+                    }})}>
+                        <option value="">Seleccionar tipo de cuenta</option>
+                        <option value="cash">Efectivo</option>
+                        <option value="bank">Cuenta bancaria</option>
+                        <option value="crypto">Crypto</option>
+                        <option value="virtual-wallet">Billetera virtual</option>
+                    </select>
+                    <p>{errors.category?.message}</p>
+                </div>
+                <div>
+                    <h3 className="font-text text-md sm:text-xl mt-3 ml-1">Moneda en la que se basa la cuenta</h3>
+                    <select className="font-text text-md sm:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" {...register("currency", {onChange: (e) => {
+                        setValue("currency", e.target.value, {shouldValidate:true})
+                    }})}>
+                        <option value="">Elija la moneda de la cuenta</option>
+                        {currencies && currencies.map((currency) => {
+                            return (
+                            <option key={currency.name} value={currency.name}>
+                                {currency.label}
+                            </option>)
+                        })}
+                    </select>
+                    <p>{errors.currency?.message}</p>
+                </div>
+                <div>
+                    <h3 className="font-text text-md sm:text-xl mt-3 ml-1">Balance inicial de la cuenta</h3>
+                    <input className="font-text text-md sm:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" type="text" {...register("balance")} placeholder="100, 3000, 123456..."/>
+                    <p>{errors.balance?.message}</p>
+                </div>
+                <button className="bg-primary text-white text-xl font-text py-4 rounded-xl hover:bg-primary-interact transition-all ease-in-out mt-8" type="submit">Agregar cuenta</button>
             </form>
+        </div>
     )
 }
 export default NewAccountForm
