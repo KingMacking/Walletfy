@@ -11,6 +11,7 @@ import { useUserContext } from "./context/UserContext";
 import ProtectedRoutes from "./hooks/ProtectedRoutes";
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Transfers from "./components/Pages/Dashboard/Pages/Transfers/Transfers";
 
 function App() {
     const {user} = useUserContext()
@@ -31,6 +32,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />}>
                             <Route path="main" element={<Main />} />
                             <Route path="accounts" element= {<Accounts />} />
+                            <Route path="transfers" element= {<Transfers />} />
                         </Route>
                     </Route>
                 </Routes>

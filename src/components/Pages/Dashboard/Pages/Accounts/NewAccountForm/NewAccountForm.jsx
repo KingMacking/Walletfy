@@ -13,8 +13,6 @@ const generateAccountSchema = yup.object({
     balance: yup.number().positive("Ingresa un balance inicial valido").required("Debes ingresar un balance inicial")
 })
 
-//TODO: Agergar que a la cuenta se le coloque el icono automaticamente para utlizarlo con iconify
-
 const NewAccountForm = () => {
     const {user} = useUserContext()
     const queryUser =  doc(db, 'users', user.uid)
