@@ -15,7 +15,7 @@ const Dashboard = () => {
                     <Waveform size={80} lineWeight={5.5} speed={1} color="#372274" />
                 </div>
             ) : (
-                <div className="flex min-h-screen h-auto min-w-full">
+                <div className="flex min-h-screen h-auto">
                     <Sidebar />
                     <Outlet context={currenciesData?.rates} />
                 </div>
