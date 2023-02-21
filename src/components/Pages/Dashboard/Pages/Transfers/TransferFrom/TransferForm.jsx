@@ -78,7 +78,7 @@ const TransferForm = () => {
 
     return (
         <div className="p-6 w-full">
-            <form className="flex flex-col p-4 sm:p-8 gap-4 bg-[#ffffff] shadow-lg rounded-xl w-full justify-center sm:max-w-full" onSubmit={handleSubmit(onSubmit)}>
+            <form className="flex flex-col p-4 sm:p-8 gap-4 bg-[#ffffff] shadow-lg rounded-xl w-full justify-center" onSubmit={handleSubmit(onSubmit)}>
                 <h2 className="text-center font-title text-3xl md:text-4xl border-primary border-b-2 py-1 px-2 w-fit mx-auto mb-4">Transferencias</h2>
                 <div>
                     <h3 className="font-text text-md md:text-xl mt-3 ml-1">Cuenta origen</h3>

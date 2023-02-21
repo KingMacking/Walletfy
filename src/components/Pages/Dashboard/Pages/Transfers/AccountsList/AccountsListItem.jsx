@@ -15,15 +15,14 @@ const accountCategoryIcon = (category) => {
 
 //TODO Agregar alerta de cuenta eliminada
 
-const AccountListItem = ({account, setAccounts}) => {
-    const {user} = useUserContext()
-
+const AccountListItem = ({account}) => {
+    const userAccount = account
 
     return (
-        <li className="flex items-center gap-12 border-b border-primary-interact last:border-b-0 py-2">
-            <div className="w-[5.65rem] md:w-40 font-text text-sm md:text-lg">{account.name}</div>
-            <div className="w-[2.1rem] md:w-28 font-text text-sm md:text-lg flex justify-center items-center"><Icon icon={accountCategoryIcon(account.category)} inline={true} /></div>
-            <div className="w-[5.65rem] md:w-40 font-text text-sm md:text-lg">{account.currency} ${account.balance}</div>
+        <li className="flex items-center justify-between gap-12 border-b border-primary-interact last:border-b-0 py-2">
+            <div className="w-[5.65rem] md:w-40 font-text text-sm md:text-lg">{userAccount.name}</div>
+            <div className="w-[4.9rem] md:w-40 font-text text-sm md:text-lg">{userAccount.currency} ${(Math.round(userAccount.balance *100) / 100).toFixed(2)}</div>
+            <div className="w-[2.1rem] md:w-28 font-text text-lg md:text-2xl flex justify-end items-center"><Icon icon={accountCategoryIcon(userAccount.category)} inline={true} /></div>
         </li>
     )
 }
