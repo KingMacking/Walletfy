@@ -20,7 +20,7 @@ const AccountListItem = ({account, setAccounts}) => {
 
 
     return (
-        <li className="flex items-center gap-4 border-b border-primary-interact last:border-b-0 py-2">
+        <li className="flex items-center gap-12 border-b border-primary-interact last:border-b-0 py-2">
             <div className="w-[5.65rem] md:w-40 font-text text-sm md:text-lg">{account.name}</div>
             <div className="w-[2.1rem] md:w-28 font-text text-sm md:text-lg flex justify-center items-center"><Icon icon={accountCategoryIcon(account.category)} inline={true} /></div>
             <div className="w-[5.65rem] md:w-40 font-text text-sm md:text-lg">{account.currency} ${account.balance}</div>

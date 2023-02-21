@@ -1,21 +1,25 @@
-import { doc } from "firebase/firestore"
+import { arrayRemove, arrayUnion, doc, getDoc, updateDoc, writeBatch } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { db } from "../../../../../../config/firebase"
 import { useUserContext } from "../../../../../../context/UserContext"
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import fx from "money";
+import { useOutletContext } from "react-router-dom";
 
 
 //TODO Transferencia en firebase entre cuentas, currencies se obtienen el context del outlet
 
 
 const TransferForm = () => {
-    const {user} = useUserContext()
+    const {user, setUser} = useUserContext()
     const queryUser =  doc(db, 'users', user.uid)
     const [baseAccount, setBaseAccount] = useState()
     const [targetAccounts, setTargetAccounts] = useState([])
-    
+    const currenciesData = useOutletContext()
+    const batch = writeBatch(db)
+
     const generateTransferSchema = yup.object({
         baseAccount: yup.string().required("Selecciona una cuenta origen"),
         balance: yup.number("El balance debe ser un numero").positive("Ingresa un monto valido").max(baseAccount?.balance, "El monto ingresado es mayor al de la cuenta de origen"),
@@ -30,11 +34,46 @@ const TransferForm = () => {
             setTargetAccounts(user.accounts.filter(account => account.name !== baseAccount.name))
         }
     }, [baseAccount])
+
+
+    const transferBalance = async (base, target, balance) => {
+        const updatedBase = {...base, balance: base.balance - balance}
+        const elementsToUpdate = [base, target]
+        
+        if(target.currency !== base.currency){
+            fx.base = "USD"
+            fx.rates = {...currenciesData, "USDT": 1, "USDC": 1}
+            const updatedBalance = fx.convert(balance, {from:base.currency, to:target.currency})
+            const updatedTarget = {...target, balance: target.balance + updatedBalance}
+            const updatedElements = [updatedBase, updatedTarget]
+            batch.update(queryUser, {
+                accounts: arrayRemove(...elementsToUpdate)
+            })
+            batch.update(queryUser, {
+                accounts: arrayUnion(...updatedElements)
+            })
+        } else {
+            const updatedTarget = {...target, balance: target.balance + balance}
+            const updatedElements = [updatedBase, updatedTarget]
+            batch.update(queryUser, {
+                accounts: arrayRemove(...elementsToUpdate)
+            })
+            batch.update(queryUser, {
+                accounts: arrayUnion(...updatedElements)
+            })
+        }
+        batch.commit()
+
+        await getDoc(queryUser)
+        .then(data=> data.data())
+        .then(userData => setUser(userData))
+    }
+
     const onSubmit = (data) => {
         console.log(data);
         const base = JSON.parse(data.baseAccount)
         const target = JSON.parse(data.targetAccount)
-        console.log(base, target);
+        transferBalance(base, target, data.balance)
     }
 
     return (

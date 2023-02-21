@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useUserContext } from "../../../../../../context/UserContext"
 import AccountListItem from "./AccountListItem"
 
@@ -6,7 +6,12 @@ import AccountListItem from "./AccountListItem"
 
 const AccountsList = () => {
     const {user} = useUserContext()
-    const [accounts, setAccounts] = useState(user.accounts)
+    const [accounts, setAccounts] = useState()
+
+    useEffect(()=> {
+        setAccounts(user.accounts)
+    }, [user])
+
     return (
         <div className="p-6 w-full">
             <ul className="p-4 sm:p-8 gap-4 bg-[#ffffff] shadow-lg rounded-xl w-full">
@@ -17,7 +22,7 @@ const AccountsList = () => {
                     <div className="w-[4.9rem] md:w-40 font-text text-sm md:text-lg font-bold">Balance</div>
                     <div className="w-[3.1rem] md:w-28 font-text text-sm md:text-lg text-end font-bold">Eliminar</div>
                 </li>
-                {accounts.length > 0 ? 
+                {accounts?.length > 0 ? 
                     accounts.map((account) => {
                         return (
                             <AccountListItem account={account} key={account.name+account.currency} setAccounts={setAccounts}/>
