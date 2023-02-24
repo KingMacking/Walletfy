@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useUserContext } from "../../../../../../context/UserContext";
 import { db } from '../../../../../../config/firebase'
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,12 +14,12 @@ const generateAccountSchema = yup.object({
 })
 
 const NewAccountForm = () => {
-    const {user, setUser} = useUserContext()
+    const {user, updateCurrentUser} = useUserContext()
     const queryUser =  doc(db, 'users', user.uid)
     const [category, setCategory] = useState('')
     const [currencies, setCurrencies] = useState([])
 
-    const {register, handleSubmit, formState, setValue, formState: {errors}} = useForm({resolver: yupResolver(generateAccountSchema)})
+    const {register, handleSubmit, reset, formState, setValue, formState: {errors}} = useForm({resolver: yupResolver(generateAccountSchema)})
     
     useEffect(()=>{
         if (category === "bank") {
@@ -46,17 +46,15 @@ const NewAccountForm = () => {
         await updateDoc(queryUser, {
             accounts: arrayUnion(account)
         }, {merge: true})
-        
-        await getDoc(queryUser)
-        .then(data=> data.data())
-        .then(userData => setUser(userData))
+        .then(() => {
+            updateCurrentUser()
+            reset()
+        })
     }
     
     const onSubmit = (data) => {
         addAccount(data)
     }
-
-    console.log(formState.errors);
 
     
     return (

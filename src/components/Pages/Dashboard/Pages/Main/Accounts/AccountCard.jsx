@@ -20,7 +20,7 @@ const AccountCard = ({account}) => {
                 {<Icon className="text-white rounded-full bg-primary p-2 text-5xl" icon={accountCategoryIcon(account.category)} inline={true} />}
                 {account.name}
             </h2>
-            <p className="font-text text-4xl mt-6">${account.balance} <span className="text-lg">{account.currency}</span></p>
+            <p className="font-text text-4xl mt-6">${(Math.round(account.balance *100) / 100).toFixed(2)} <span className="text-lg">{account.currency}</span></p>
         </div>
     )
 }

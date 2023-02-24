@@ -26,7 +26,6 @@ const Sidebar = () => {
             await signOut(auth)
             .finally(navigate("/login"))
         } catch (error) {
-            console.log(error);
         }
     }
 
@@ -48,7 +47,7 @@ const Sidebar = () => {
                     <NavLink className={({isActive}) => [`flex items-center ${!open && "w-fit"} gap-3 font-text p-2 hover:bg-primary-interact rounded-md transition-all ease-in-out`, isActive && "border border-primary-interact"].join(" ") } to="/dashboard/payments"><div><Icon className='text-3xl' icon="majesticons:money-minus-line" inline={true} /></div><h2 className={`font-title text-lg whitespace-pre duration-500 ${!open && 'hidden translate-x-28 overflow-hidden'}`}>Pagos</h2></NavLink>
                     <NavLink className={({isActive}) => [`flex items-center ${!open && "w-fit"} gap-3 font-text p-2 hover:bg-primary-interact rounded-md transition-all ease-in-out mb-4`, isActive && "border border-primary-interact"].join(" ") } to="/dashboard/transfers"><div><Icon className='text-3xl'  icon="mingcute:transfer-3-line" inline={true} /></div><h2 className={`font-title text-lg whitespace-pre duration-500 ${!open && 'hidden translate-x-28 overflow-hidden'}`}>Transferencias</h2></NavLink>
                     <div className='h-[2px] bg-primary-interact'></div>
-                    <NavLink className={({isActive}) => [`flex items-center gap-3 font-text p-2 hover:bg-primary-interact rounded-md transition-all ease-in-out ${!open && "w-fit"} mt-4`, isActive && "border border-primary-interact"].join(" ") } to="/dashboard/settings"><div><Icon className='text-3xl' icon="material-symbols:settings-rounded" inline={true} /></div><h2 className={`font-title text-lg whitespace-pre duration-500 ${!open && 'hidden translate-x-28 overflow-hidden'}`}>Configuración</h2></NavLink>
+                    <NavLink className={({isActive}) => [`flex items-center gap-3 font-text p-2 hover:bg-primary-interact rounded-md transition-all ease-in-out ${!open && "w-fit"} mt-4`, isActive && "border border-primary-interact"].join(" ") } to="/dashboard/configuration"><div><Icon className='text-3xl' icon="material-symbols:settings-rounded" inline={true} /></div><h2 className={`font-title text-lg whitespace-pre duration-500 ${!open && 'hidden translate-x-28 overflow-hidden'}`}>Configuración</h2></NavLink>
                     <button onClick={logOut} className={`flex items-center ${!open && "w-fit"} gap-3 font-text p-2 hover:bg-[#ff000080] rounded-md transition-all ease-in-out`}><div><Icon className='text-3xl' icon="dashicons:exit" inline={true} /></div><h2 className={`font-title text-lg whitespace-pre duration-500 ${!open && 'hidden translate-x-28 overflow-hidden'}`}>Cerrar sesión</h2></button>
                 </div>
             </div>

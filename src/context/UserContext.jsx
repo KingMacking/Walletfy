@@ -28,8 +28,13 @@ const UserContextProvider = ({children}) => {
         }
     })
 
+    const updateCurrentUser = async () => {
+        await getUserData(user?.uid)
+        .then(data => setUser(data))
+    }
+
     return (
-        <UserContext.Provider value={{user, setUser}}>
+        <UserContext.Provider value={{user, updateCurrentUser}}>
             {children}
         </UserContext.Provider>
     )

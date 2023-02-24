@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
+
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Dashboard from "./components/Pages/Dashboard/Dashboard";
@@ -7,11 +8,15 @@ import Main from "./components/Pages/Dashboard/Pages/Main/Main";
 import Home from "./components/Pages/Home/Home";
 import Login from "./components/Pages/Login/Login";
 import Register from "./components/Pages/Register/Register";
-import { useUserContext } from "./context/UserContext";
+import Transfers from "./components/Pages/Dashboard/Pages/Transfers/Transfers";
+import Incomes from "./components/Pages/Dashboard/Pages/Incomes/Incomes";
+import Payments from "./components/Pages/Dashboard/Pages/Payments/Payments";
 import ProtectedRoutes from "./hooks/ProtectedRoutes";
+import Profile from "./components/Pages/Dashboard/Pages/Profile/Profile";
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Transfers from "./components/Pages/Dashboard/Pages/Transfers/Transfers";
+import { useUserContext } from "./context/UserContext";
+import Configuration from "./components/Pages/Dashboard/Pages/Configuration/Configuration";
 
 function App() {
     const {user} = useUserContext()
@@ -33,6 +38,10 @@ function App() {
                             <Route path="main" element={<Main />} />
                             <Route path="accounts" element= {<Accounts />} />
                             <Route path="transfers" element= {<Transfers />} />
+                            <Route path="incomes" element= {<Incomes />} />
+                            <Route path="payments" element= {<Payments />} />
+                            <Route path="profile" element= {<Profile />} />
+                            <Route path="configuration" element={<Configuration />} />
                         </Route>
                     </Route>
                 </Routes>

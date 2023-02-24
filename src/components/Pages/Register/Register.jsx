@@ -30,6 +30,11 @@ const Register = () => {
         const email = data.email
         const password = data.password
         const userInfo = await createUserWithEmailAndPassword(auth, email, password)
+        .catch(error => {
+            if (error) {
+                console.log(error.message);
+            }
+        })
         const docRef = doc(users, userInfo.user.uid)
         await setDoc(docRef, {
             email: email, 

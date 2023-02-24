@@ -1,4 +1,4 @@
-import { arrayRemove, arrayUnion, doc, getDoc, updateDoc, writeBatch } from "firebase/firestore"
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { db } from "../../../../../../config/firebase"
 import { useUserContext } from "../../../../../../context/UserContext"
@@ -8,17 +8,15 @@ import { useForm } from "react-hook-form";
 import fx from "money";
 import { useOutletContext } from "react-router-dom";
 
+//TODO Agregar botones de 10% 50% y MAX abajo del monto
 
-//TODO Transferencia en firebase entre cuentas, currencies se obtienen el context del outlet
 
-
-const TransferForm = () => {
-    const {user, setUser} = useUserContext()
+const TransferForm = ({transfering, setTransfering}) => {
+    const {user, updateCurrentUser} = useUserContext()
     const queryUser =  doc(db, 'users', user.uid)
     const [baseAccount, setBaseAccount] = useState()
     const [targetAccounts, setTargetAccounts] = useState([])
     const currenciesData = useOutletContext()
-    const batch = writeBatch(db)
 
     const generateTransferSchema = yup.object({
         baseAccount: yup.string().required("Selecciona una cuenta origen"),
@@ -26,10 +24,9 @@ const TransferForm = () => {
         targetAccount: yup.string().required("Debes seleccionar una cuenta destino")
     })
 
-    const {register, handleSubmit, setValue, formState: {errors}} = useForm({resolver: yupResolver(generateTransferSchema)})
+    const {register, handleSubmit, setValue, formState: {errors}, reset} = useForm({resolver: yupResolver(generateTransferSchema)})
 
     useEffect(() => {
-        console.log(baseAccount);
         if(baseAccount){
             setTargetAccounts(user.accounts.filter(account => account.name !== baseAccount.name))
         }
@@ -46,34 +43,36 @@ const TransferForm = () => {
             const updatedBalance = fx.convert(balance, {from:base.currency, to:target.currency})
             const updatedTarget = {...target, balance: target.balance + updatedBalance}
             const updatedElements = [updatedBase, updatedTarget]
-            batch.update(queryUser, {
+            await updateDoc(queryUser, {
                 accounts: arrayRemove(...elementsToUpdate)
             })
-            batch.update(queryUser, {
+            await updateDoc(queryUser, {
                 accounts: arrayUnion(...updatedElements)
             })
         } else {
             const updatedTarget = {...target, balance: target.balance + balance}
             const updatedElements = [updatedBase, updatedTarget]
-            batch.update(queryUser, {
+            await updateDoc(queryUser, {
                 accounts: arrayRemove(...elementsToUpdate)
             })
-            batch.update(queryUser, {
+            await updateDoc(queryUser, {
                 accounts: arrayUnion(...updatedElements)
             })
         }
-        batch.commit()
-
-        await getDoc(queryUser)
-        .then(data=> data.data())
-        .then(userData => setUser(userData))
     }
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
         const base = JSON.parse(data.baseAccount)
         const target = JSON.parse(data.targetAccount)
-        transferBalance(base, target, data.balance)
+        setTransfering(true)
+        await transferBalance(base, target, data.balance)
+        .then(() => {
+            updateCurrentUser()
+            reset()
+        })
+        .finally(()=> {
+            setTransfering(false)
+        })
     }
 
     return (
@@ -86,8 +85,8 @@ const TransferForm = () => {
                         setBaseAccount(JSON.parse(e.target.value))
                         setValue("baseAccount", e.target.value, {shouldValidate: true})
                     }})}>
-                        <option value="">Selecciona cuenta orien</option>
-                        {user.accounts.map((account) => {
+                        <option value="">Selecciona cuenta origen</option>
+                        {user.accounts?.map((account) => {
                             return <option key={account.name+account.currency} value={JSON.stringify(account)}>{account.name}</option>
                         })}
                     </select>
@@ -104,13 +103,13 @@ const TransferForm = () => {
                         setValue("targetAccount", e.target.value, {shouldValidate:true})
                     }})}>
                         <option value="">Selecciona cuenta destino</option>
-                        {targetAccounts.map(account => {
+                        {targetAccounts?.map(account => {
                             return <option key={account.name+account.currency} value={JSON.stringify(account)}>{account.name}</option>
                         })}
                     </select>
                     <p>{errors.targetAccount?.message}</p>
                 </div>
-                <button className="bg-primary text-white text-xl font-text py-4 rounded-xl hover:bg-primary-interact transition-all ease-in-out mt-8" type="submit">Transferir</button>
+                <button disabled={transfering} className="bg-primary text-white text-xl font-text py-4 rounded-xl hover:bg-primary-interact transition-all ease-in-out mt-8" type="submit">Transferir</button>
             </form>
         </div>
     )
