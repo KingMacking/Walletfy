@@ -1,7 +1,4 @@
 import { Icon } from "@iconify/react"
-import { arrayRemove, doc, getDoc, updateDoc } from "firebase/firestore"
-import { db } from "../../../../config/firebase"
-import { useUserContext } from "../../../../context/UserContext"
 
 const accountCategoryIcon = (category) => {
     if (category === "bank") {
@@ -17,21 +14,9 @@ const accountCategoryIcon = (category) => {
 
 //TODO Agregar alerta de cuenta eliminada
 
-const AccountsListItem = ({account, canDelete}) => {
-    const {user, setUser} = useUserContext()
-    const queryUser =  doc(db, 'users', user.uid)
+const AccountsListItem = ({account, canDelete, confirmDelete}) => {
     const userAccount = account
     
-
-    const deleteAccount= async (account) => {
-        await updateDoc(queryUser, {
-            accounts: arrayRemove(account)
-        })
-        .then(() => {
-            updateCurrentUser()
-        })
-    }
-
     return (
         <li className="flex items-center gap-2 justify-between border-b border-primary-interact last:border-b-0 py-2">
             <div className="w-[5.65rem] md:w-40 font-text text-sm md:text-lg">{account.name}</div>
@@ -39,7 +24,7 @@ const AccountsListItem = ({account, canDelete}) => {
             <div className={`w-[2.1rem] md:w-28 font-text text-sm md:text-2xl flex ${canDelete ? "justify-center" : "justify-end"} items-center`}><Icon icon={accountCategoryIcon(account.category)} inline={true} /></div>
             {
                 canDelete &&    <div className="w-[3.1rem] md:w-28 font-text text-2xl md:text-4xl flex items-center justify-end">
-                                    <button onClick={()=> deleteAccount(account)}><Icon className="text-[#ff0000] hover:cursor-pointer hover:bg-[#ff0000] hover:text-white p-1 rounded-lg" icon="material-symbols:delete-rounded" inline={true} /></button>
+                                    <button onClick={()=> confirmDelete(account)}><Icon className="text-[#ff0000] hover:cursor-pointer hover:bg-[#ff0000] hover:text-white p-1 rounded-lg" icon="material-symbols:delete-rounded" inline={true} /></button>
                                 </div>
             }
         </li>

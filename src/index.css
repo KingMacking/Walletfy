@@ -9,8 +9,8 @@
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100%;
   height: auto;
   width: auto;
-  min-width: 100vw;
+  min-width: 100%;
 }

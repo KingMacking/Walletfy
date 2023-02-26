@@ -65,6 +65,23 @@ const TransferForm = ({transfering, setTransfering}) => {
         const base = JSON.parse(data.baseAccount)
         const target = JSON.parse(data.targetAccount)
         setTransfering(true)
+        const activity = {
+            typeName: "transfer",
+            typeIcon: "mingcute:transfer-3-line",
+            amount: data.balance,
+            currency: base.currency,
+            baseAccount: base.name,
+            targetAccount: target.name,
+        }
+        if(user.lastActivities.length === 10) {
+            user.lastActivities.shift()
+            user.lastActivities.push(activity)
+        } else {
+            user.lastActivities.push(activity)
+        }
+        await updateDoc(queryUser, {
+            lastActivities: user.lastActivities
+        })
         await transferBalance(base, target, data.balance)
         .then(() => {
             updateCurrentUser()

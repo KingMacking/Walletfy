@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import logoFooter from '../../assets/walletfy-logo-text-b.svg'
 
-
-// TODO: Hacer que el body siempre tenga 100vh y poner el footer siempre abajo
-
 const Footer = () => {
     const [footervVisibility, setFooterVisibility] = useState(null)
     const mainPages = ["/", "/contact", "/aboutus", "/faq", "/functioning", "/register", "/login"]

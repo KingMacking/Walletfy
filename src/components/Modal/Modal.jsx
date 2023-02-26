@@ -1,5 +1,4 @@
 const Modal = ({show, onClose, title, children, confirmButton}) => {
-    console.log(show);
     return (
         <>
             {

@@ -22,11 +22,27 @@ const PaymentsForm = ({transfering, setTransfering}) => {
         const baseAccount = JSON.parse(data.baseAccount)
         const updatedAccount = {...baseAccount, balance: baseAccount.balance - data.balance}
         setTransfering(true)
+        const activity = {
+            typeName: "payment",
+            typeIcon: "majesticons:money-minus-line",
+            amount: data.balance,
+            currency: baseAccount.currency,
+            baseAccount: baseAccount.name,
+        }
+        if(user.lastActivities.length === 10) {
+            user.lastActivities.shift()
+            user.lastActivities.push(activity)
+        } else {
+            user.lastActivities.push(activity)
+        }
         await updateDoc(queryUser, {
             accounts: arrayRemove(baseAccount)
         })
         await updateDoc(queryUser, {
             accounts: arrayUnion(updatedAccount)
+        })
+        await updateDoc(queryUser, {
+            lastActivities: user.lastActivities
         })
         .then(() => {
             updateCurrentUser()

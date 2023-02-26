@@ -21,12 +21,28 @@ const IncomesForm = ({transfering, setTransfering}) => {
     const onSubmit = async (data) => {
         const baseAccount = JSON.parse(data.baseAccount)
         const updatedAccount = {...baseAccount, balance: baseAccount.balance + data.balance}
+        const activity = {
+            typeName: "income",
+            typeIcon: "majesticons:money-plus-line",
+            amount: data.balance,
+            currency: baseAccount.currency,
+            baseAccount: baseAccount.name,
+        }
+        if(user.lastActivities.length === 10) {
+            user.lastActivities.shift()
+            user.lastActivities.push(activity)
+        } else {
+            user.lastActivities.push(activity)
+        }
         setTransfering(true)
         await updateDoc(queryUser, {
             accounts: arrayRemove(baseAccount)
         })
         await updateDoc(queryUser, {
             accounts: arrayUnion(updatedAccount)
+        })
+        await updateDoc(queryUser, {
+            lastActivities: user.lastActivities
         })
         .then(() => {
             updateCurrentUser()

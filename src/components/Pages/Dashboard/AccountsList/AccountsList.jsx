@@ -1,15 +1,23 @@
 import { Waveform } from "@uiball/loaders"
 import { useEffect, useState } from "react"
 import { useUserContext } from "../../../../context/UserContext"
+import AccountDeletingConfirmation from "./AccountDeletingConfirmation"
 import AccountsListItem from "./AccountsListItem"
 
 const AccountsList = ({canDelete, transfering}) => {
     const {user} = useUserContext()
     const [accounts, setAccounts] = useState()
+    const [isConfirming, setIsConfirming] = useState(false)
+    const [accountToDelete, setAccountToDelete] = useState()
 
     useEffect(()=> {
         setAccounts(user.accounts)
     }, [user])
+
+    const confirmDelete = (account) => {
+        setAccountToDelete(account)
+        setIsConfirming(true)
+    }
 
     return (
         <div className="p-6 w-full">
@@ -30,15 +38,15 @@ const AccountsList = ({canDelete, transfering}) => {
                     {accounts?.length > 0 ? 
                         accounts.map((account) => {
                             return (
-                                <AccountsListItem account={account} key={account.name+account.currency} setAccounts={setAccounts} canDelete={canDelete}/>
+                                <AccountsListItem account={account} key={account.name+account.currency} canDelete={canDelete} confirmDelete={confirmDelete} />
                             )
                         }) : (
-                                <h2>No tienes ninguna cuenta registrada</h2>
+                                <h2 className="font-title text-2xl">No tienes ninguna cuenta registrada</h2>
                         )
                     }
                 </ul>
             }
-            
+            <AccountDeletingConfirmation isConfirming={isConfirming} setIsConfirming={setIsConfirming} account={accountToDelete}/>
         </div>
     )
 }

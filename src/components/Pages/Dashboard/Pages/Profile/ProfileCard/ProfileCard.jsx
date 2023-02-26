@@ -38,12 +38,12 @@ const ProfileCard = ({isUpdating, setIsUpdating}) => {
 
     return (
         <div className="p-6 w-full">
-            <div className="flex mt-12 flex-col p-4 sm:p-8 gap-4 bg-[#ffffff] shadow-lg rounded-xl justify-center items-center w-[300px] md:w-[530px]">
+            <div className="flex flex-col p-4 sm:p-8 gap-4 bg-[#ffffff] shadow-lg rounded-xl justify-center items-center w-full md:w-[530px]">
             {
                 isUpdating ? <Waveform className="w-full" size={80} lineWeight={5.5} speed={1} color="#372274" />
                 :
                     <>
-                            <img className="rounded-full border-2 border-primary-interact w-1/4 -mt-20" src={user.thumbnail} />
+                            <img className="rounded-full border-2 border-primary-interact w-1/4" src={user.thumbnail} />
                             <h2 className="text-center font-title text-3xl md:text-4xl border-primary border-b-2 py-1 px-2 w-fit mx-auto mb-4">{user.displayName}</h2>
                             <div className="w-full ml-6 flex flex-col gap-4 my-4">
                                 <p className="font-text text-xl w-full flex items-center gap-2"><Icon className="text-white rounded-full bg-primary p-2 text-4xl" icon="material-symbols:account-balance-wallet-outline-rounded" inline={true} />Cantidad de cuentas: {user.accounts.length}</p>

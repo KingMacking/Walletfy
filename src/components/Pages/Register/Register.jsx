@@ -41,6 +41,7 @@ const Register = () => {
             thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png", 
             displayName: userInfo.user.email.split('@')[0],
             accounts: [],
+            lastActivities: [],
             theme: 'dark',
             currency: 'ARS',
             uid: userInfo.user.uid

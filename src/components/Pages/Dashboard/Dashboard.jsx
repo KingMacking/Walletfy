@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
 import { Waveform } from '@uiball/loaders'
+import ActivitiesBar from "./ActivitiesBar/ActivitiesBar";
 
 const Dashboard = () => {
     const {data: currenciesData, isLoading} = useQuery(["cryptos"], () => {
@@ -11,13 +12,14 @@ const Dashboard = () => {
     return (
         <>
             {isLoading ? (
-                <div className="flex justify-center items-center h-screen w-screen">
+                <div className="flex justify-center items-center h-screen w-full">
                     <Waveform size={80} lineWeight={5.5} speed={1} color="#372274" />
                 </div>
             ) : (
-                <div className="flex min-h-screen h-auto">
+                <div className="flex min-h-screen h-auto w-full">
                     <Sidebar />
                     <Outlet context={currenciesData?.rates} />
+                    <ActivitiesBar />
                 </div>
             )}
         </>

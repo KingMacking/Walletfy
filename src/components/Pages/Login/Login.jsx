@@ -8,7 +8,6 @@ import { Icon } from "@iconify/react";
 import { useUserContext } from "../../../context/UserContext";
 import { useEffect } from "react";
 
-// TODO: Dar estilos, navigate al dashboard
 const generteLoginSchema = yup.object().shape({
     email: yup.string().email('Debes ingresar un email valido').required('Email requerido'),
     password: yup.string().required('Contraseña necesaria')
