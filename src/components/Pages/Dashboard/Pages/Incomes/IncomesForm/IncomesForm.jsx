@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import INCOMES_TYPES from "../../../../../../data/IncomesTypes";
+import { toast } from "react-toastify";
 
 const IncomesForm = ({transfering, setTransfering}) => {
     const {user, updateCurrentUser } = useUserContext()
@@ -35,6 +36,7 @@ const IncomesForm = ({transfering, setTransfering}) => {
             user.lastActivities.push(activity)
         }
         setTransfering(true)
+        const registerIncomeToast = toast.loading("Registrando ingreso", {position: "bottom-center"})
         await updateDoc(queryUser, {
             accounts: arrayRemove(baseAccount)
         })
@@ -50,6 +52,14 @@ const IncomesForm = ({transfering, setTransfering}) => {
         })
         .finally(() => {
             setTransfering(false)
+            toast.update(registerIncomeToast, {
+                render:"Ingreso registrado", 
+                type: "success", 
+                isLoading: false, 
+                autoClose:3000, 
+                position: "bottom-center", 
+                hideProgressBar: false
+            })
         })
     }
     

@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import PAYMENTS_TYPES from "../../../../../../data/PaymentsTypes";
+import { toast } from "react-toastify";
 
 const PaymentsForm = ({transfering, setTransfering}) => {
     const {user, updateCurrentUser } = useUserContext()
@@ -21,7 +22,6 @@ const PaymentsForm = ({transfering, setTransfering}) => {
     const onSubmit = async (data) => {
         const baseAccount = JSON.parse(data.baseAccount)
         const updatedAccount = {...baseAccount, balance: baseAccount.balance - data.balance}
-        setTransfering(true)
         const activity = {
             typeName: "payment",
             typeIcon: "majesticons:money-minus-line",
@@ -35,6 +35,8 @@ const PaymentsForm = ({transfering, setTransfering}) => {
         } else {
             user.lastActivities.push(activity)
         }
+        const registerPaymentToast = toast.loading("Registrando pago", {position: "bottom-center"})
+        setTransfering(true)
         await updateDoc(queryUser, {
             accounts: arrayRemove(baseAccount)
         })
@@ -50,6 +52,14 @@ const PaymentsForm = ({transfering, setTransfering}) => {
         })
         .finally(() => {
             setTransfering(false)
+            toast.update(registerPaymentToast, {
+                render:"Pago registrado", 
+                type: "success", 
+                isLoading: false, 
+                autoClose:3000, 
+                position: "bottom-center", 
+                hideProgressBar: false
+            })
         })
     }
     

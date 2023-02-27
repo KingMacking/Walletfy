@@ -13,10 +13,12 @@ import Incomes from "./components/Pages/Dashboard/Pages/Incomes/Incomes";
 import Payments from "./components/Pages/Dashboard/Pages/Payments/Payments";
 import ProtectedRoutes from "./hooks/ProtectedRoutes";
 import Profile from "./components/Pages/Dashboard/Pages/Profile/Profile";
+import Configuration from "./components/Pages/Dashboard/Pages/Configuration/Configuration";
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useUserContext } from "./context/UserContext";
-import Configuration from "./components/Pages/Dashboard/Pages/Configuration/Configuration";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const {user} = useUserContext()
@@ -46,6 +48,7 @@ function App() {
                     </Route>
                 </Routes>
             </QueryClientProvider>
+            <ToastContainer limit={5} />
             <Footer />
         </>
     );

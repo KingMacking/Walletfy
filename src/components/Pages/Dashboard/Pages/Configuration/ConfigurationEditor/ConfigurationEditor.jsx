@@ -6,6 +6,7 @@ import { useUserContext } from "../../../../../../context/UserContext"
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import Modal from "../../../../../Modal/Modal"
+import { toast } from "react-toastify"
 
 const generateUpdateConfigsSchema = yup.object({
     currency: yup.string().oneOf(["EUR", "USD", "ARS"], "Debes seleccionar una moneda").required("Debes elegir una moneda")
@@ -27,7 +28,7 @@ const ConfigurationEditor = ({setIsUpdating, isEditing, setIsEditing}) => {
 
     const onSubmit = async (data) => {
         const currency = data.currency
-        console.log(currency);
+        const configToast = toast.loading("Aplicando cambios", {position: "bottom-center"})
         if(currency !== '' && currency !== user.currency){
             reset()
             setIsUpdating(true)
@@ -41,6 +42,14 @@ const ConfigurationEditor = ({setIsUpdating, isEditing, setIsEditing}) => {
             })
             .finally(()=> {
                 setIsUpdating(false)
+                toast.update(configToast, {
+                    render:"Configuración aplicada", 
+                    type: "success", 
+                    isLoading: false, 
+                    autoClose:3000, 
+                    position: "bottom-center", 
+                    hideProgressBar: false
+                })
             })
         } else {
             setIsEmpty(true)

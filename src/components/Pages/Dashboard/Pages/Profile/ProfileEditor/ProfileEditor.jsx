@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../../../config/firebase";
 import { useUserContext } from "../../../../../../context/UserContext";
+import { toast } from "react-toastify";
 
 const generateUpdateUserSchema = yup.object({
     thumbnail: yup.string().url("Ingresa un link valido"),
@@ -23,8 +24,8 @@ const ProfileEditor = ({setIsUpdating, isEditing, setIsEditing}) => {
     const onSubmit = async (data) => {
         const thumbnail = data.thumbnail
         const displayName = data.displayName
-
         if((thumbnail !== '' && thumbnail !== user.thumbnail) && (displayName !== '' && displayName !== user.displayName)){
+            const updateProfileToast = toast.loading("Actualizando perfil", {position: "bottom-center"})
             setIsUpdating(true)
             setIsEditing(false)
             setIsEmpty(false)
@@ -38,8 +39,17 @@ const ProfileEditor = ({setIsUpdating, isEditing, setIsEditing}) => {
             })
             .finally(()=> {
                 setIsUpdating(false)
+                toast.update(updateProfileToast, {
+                    render:"Nombre y foto de perfil actualizados", 
+                    type: "success", 
+                    isLoading: false, 
+                    autoClose:3000, 
+                    position: "bottom-center", 
+                    hideProgressBar: false
+                })
             })
         } else if (displayName !== '' && displayName !== user.displayName){
+            const updateProfileToast = toast.loading("Actualizando perfil", {position: "bottom-center"})
             setIsUpdating(true)
             setIsEditing(false)
             setIsEmpty(false)
@@ -52,8 +62,17 @@ const ProfileEditor = ({setIsUpdating, isEditing, setIsEditing}) => {
             })
             .finally(()=> {
                 setIsUpdating(false)
+                toast.update(updateProfileToast, {
+                    render:"Nombre actualizado", 
+                    type: "success", 
+                    isLoading: false, 
+                    autoClose:3000, 
+                    position: "bottom-center", 
+                    hideProgressBar: false
+                })
             })
         } else if (thumbnail !== '' && thumbnail !== user.thumbnail){
+            const updateProfileToast = toast.loading("Actualizando perfil", {position: "bottom-center"})
             setIsUpdating(true)
             setIsEditing(false)
             setIsEmpty(false)
@@ -66,6 +85,14 @@ const ProfileEditor = ({setIsUpdating, isEditing, setIsEditing}) => {
             })
             .finally(()=> {
                 setIsUpdating(false)
+                toast.update(updateProfileToast, {
+                    render:"Foto de perfil actualizada", 
+                    type: "success", 
+                    isLoading: false, 
+                    autoClose:3000, 
+                    position: "bottom-center", 
+                    hideProgressBar: false
+                })
             })
         } else {
             setIsEmpty(true)

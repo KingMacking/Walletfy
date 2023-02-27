@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import fx from "money";
 import { useOutletContext } from "react-router-dom";
+import { toast } from "react-toastify";
 
 //TODO Agregar botones de 10% 50% y MAX abajo del monto
 
@@ -65,6 +66,7 @@ const TransferForm = ({transfering, setTransfering}) => {
         const base = JSON.parse(data.baseAccount)
         const target = JSON.parse(data.targetAccount)
         setTransfering(true)
+        const transferToast = toast.loading("Realizando transferencia", {position: "bottom-center"})
         const activity = {
             typeName: "transfer",
             typeIcon: "mingcute:transfer-3-line",
@@ -89,6 +91,14 @@ const TransferForm = ({transfering, setTransfering}) => {
         })
         .finally(()=> {
             setTransfering(false)
+            toast.update(transferToast, {
+                render:"Transferencia realizada", 
+                type: "success", 
+                isLoading: false, 
+                autoClose:3000, 
+                position: "bottom-center", 
+                hideProgressBar: false
+            })
         })
     }
 

@@ -5,6 +5,7 @@ import { useUserContext } from "../../../../../../context/UserContext";
 import { db } from '../../../../../../config/firebase'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { toast } from "react-toastify";
 
 const generateAccountSchema = yup.object({
     name: yup.string().required("Nombre de la cuenta obligatorio"),
@@ -42,15 +43,24 @@ const NewAccountForm = () => {
             currency: accountData.currency,
             balance: parseFloat(accountData.balance)
         }
-
+        const addAccountToast = toast.loading("Agregando cuenta", {position: "bottom-center"})
         await updateDoc(queryUser, {
             accounts: arrayUnion(account)
         }, {merge: true})
         .then(() => {
             updateCurrentUser()
             reset()
+            toast.update(addAccountToast, {
+                render:"Cuenta agregada", 
+                type: "success", 
+                isLoading: false, 
+                autoClose:3000, 
+                position: "bottom-center", 
+                hideProgressBar: false
+            })
         })
     }
+    
     
     const onSubmit = (data) => {
         addAccount(data)
