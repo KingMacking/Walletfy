@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import logoFooter from '../../assets/walletfy-logo-text-b.svg'
+import useColorMode from '../../hooks/useColorMode'
+import LogoText from '../LogoText/LogoText'
 
 const Footer = () => {
     const [footervVisibility, setFooterVisibility] = useState(null)
+    const [colorMode, setColorModer] = useColorMode()
     const mainPages = ["/", "/contact", "/aboutus", "/faq", "/functioning", "/register", "/login"]
     const location = useLocation()
 
@@ -17,10 +19,10 @@ const Footer = () => {
 
     if(footervVisibility){
         return (
-            <footer className='bg-base w-full'>
+            <footer className='bg-white dark:bg-black w-full dark:text-white'>
                 <nav className='flex flex-col md:flex-row md:justify-around justify-start items-start w-full px-5 py-10'>
                     <div className='self-start md:self-center md:my-0 my-5 w-60'>
-                        <Link><img className='w-full' src={logoFooter} alt="Logo walletfy" /></Link>
+                        <Link><LogoText textColor={colorMode === 'dark' ? '#FDFDFD' : '#171717'} /></Link>
                     </div>
                     <ul className="list-none md:mb-0 mb-10">
                         <h2 className='font-title font-bold text-lg'>Navegación</h2>

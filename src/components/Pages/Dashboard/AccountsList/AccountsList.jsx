@@ -27,7 +27,7 @@ const AccountsList = ({canDelete, transfering}) => {
                         <Waveform className="w-full" size={80} lineWeight={5.5} speed={1} color="#372274" />
                     </div>
                 :
-                <ul className="p-4 sm:p-8 gap-4 bg-[#ffffff] shadow-lg rounded-xl w-full">
+                <ul className="p-4 sm:p-8 gap-4 bg-real-white dark:bg-black dark:text-white shadow-lg rounded-xl w-full">
                     <h2 className="text-center font-title text-3xl md:text-4xl border-primary border-b-2 py-1 px-2 w-fit mx-auto mb-4">Tus cuentas</h2>
                     <li className="flex items-center gap-4 justify-between border-b border-primary-interact last:border-b-0 py-2">
                         <div className="w-[5.65rem] md:w-40 font-text text-sm md:text-lg font-bold">Nombre</div>
@@ -41,7 +41,7 @@ const AccountsList = ({canDelete, transfering}) => {
                                 <AccountsListItem account={account} key={account.name+account.currency} canDelete={canDelete} confirmDelete={confirmDelete} />
                             )
                         }) : (
-                                <h2 className="font-title text-2xl">No tienes ninguna cuenta registrada</h2>
+                                <h2 className="font-title text-2xl mt-4">No tienes ninguna cuenta registrada</h2>
                         )
                     }
                 </ul>

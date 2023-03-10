@@ -9,7 +9,7 @@ const ConfigurationCard = ({isUpdating, setIsUpdating}) => {
     const [isEditing, setIsEditing] = useState(false)
     return (
         <div className="p-6 w-full">
-            <div className="flex  flex-col p-4 sm:p-8 gap-4 bg-[#ffffff] shadow-lg rounded-xl justify-center items-center w-full md:w-[530px]">
+            <div className="flex  flex-col p-4 sm:p-8 gap-4 bg-real-white dark:bg-black dark:text-white shadow-lg rounded-xl justify-center items-center w-full md:w-[530px]">
             {
                 isUpdating ? <Waveform className="w-full" size={80} lineWeight={5.5} speed={1} color="#372274" />
                 :

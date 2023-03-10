@@ -31,8 +31,8 @@ const AccountDeletingConfirmation = ({account, isConfirming, setIsConfirming}) =
     
     return (
         <Modal title="Confirmar eliminar cuenta" show={isConfirming} onClose={() => setIsConfirming(false)} confirmButton={confirmDeleteButton}>
-            <p className="font-text text-xl mb-2">Estas a punto de eliminar la cuenta:</p>
-            <p className="font-text text-2xl font-bold">{account?.name}</p>
+            <p className="font-text text-xl mb-2 dark:text-white mt-6">Estas a punto de eliminar la cuenta:</p>
+            <p className="font-text text-2xl font-bold dark:text-white mb-6">{account?.name}</p>
         </Modal>
     )
 }

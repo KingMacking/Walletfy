@@ -21,7 +21,7 @@ const TransferForm = ({transfering, setTransfering}) => {
 
     const generateTransferSchema = yup.object({
         baseAccount: yup.string().required("Selecciona una cuenta origen"),
-        balance: yup.number("El balance debe ser un numero").positive("Ingresa un monto valido").max(baseAccount?.balance, "El monto ingresado es mayor al de la cuenta de origen"),
+        balance: yup.number().positive("Ingresa un monto valido").max(baseAccount?.balance, "El monto ingresado es mayor al de la cuenta de origen").required("Debes ingresar un monto").typeError("El campo ingresado debe ser un numero"),
         targetAccount: yup.string().required("Debes seleccionar una cuenta destino")
     })
 
@@ -104,11 +104,11 @@ const TransferForm = ({transfering, setTransfering}) => {
 
     return (
         <div className="p-6 w-full">
-            <form className="flex flex-col p-4 sm:p-8 gap-4 bg-[#ffffff] shadow-lg rounded-xl w-full justify-center" onSubmit={handleSubmit(onSubmit)}>
+            <form className="flex flex-col p-4 sm:p-8 gap-4 bg-real-white dark:bg-black dark:text-white shadow-lg rounded-xl w-full justify-center" onSubmit={handleSubmit(onSubmit)}>
                 <h2 className="text-center font-title text-3xl md:text-4xl border-primary border-b-2 py-1 px-2 w-fit mx-auto mb-4">Transferencias</h2>
                 <div>
                     <h3 className="font-text text-md md:text-xl mt-3 ml-1">Cuenta origen</h3>
-                    <select className="font-text text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" name="baseAccount" id="baseAccount" {...register("baseAccount", {onChange: (e) => {
+                    <select className="font-text dark:bg-black text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" name="baseAccount" id="baseAccount" {...register("baseAccount", {onChange: (e) => {
                         setBaseAccount(JSON.parse(e.target.value))
                         setValue("baseAccount", e.target.value, {shouldValidate: true})
                     }})}>
@@ -117,16 +117,16 @@ const TransferForm = ({transfering, setTransfering}) => {
                             return <option key={account.name+account.currency} value={JSON.stringify(account)}>{account.name}</option>
                         })}
                     </select>
-                    <p>{errors.baseAccount?.message}</p>
+                    <p className="font-text ml-1">{errors.baseAccount?.message}</p>
                 </div>
                 <div>
                     <h3 className="font-text text-md md:text-xl mt-3 ml-1">Balance</h3>
-                    <input className="font-text text-md md:text-xl pt-2 border-b focus:outline-none border-primary-interact px-3 w-full" type="text" {...register("balance")} placeholder="Balance a transferir"/>
-                    <p>{errors.balance?.message}</p>
+                    <input className="font-text dark:bg-black text-md md:text-xl pt-2 border-b focus:outline-none border-primary-interact px-3 w-full" type="text" {...register("balance")} placeholder="Balance a transferir"/>
+                    <p className="font-text ml-1">{errors.balance?.message}</p>
                 </div>
                 <div>
                     <h3 className="font-text text-md md:text-xl mt-3 ml-1">Cuenta destino</h3>
-                    <select className="font-text text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" name="targetAccount" id="targetAccount" {...register("targetAccount", {onChange: (e)=>{
+                    <select className="font-text dark:bg-black text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" name="targetAccount" id="targetAccount" {...register("targetAccount", {onChange: (e)=>{
                         setValue("targetAccount", e.target.value, {shouldValidate:true})
                     }})}>
                         <option value="">Selecciona cuenta destino</option>
@@ -134,7 +134,7 @@ const TransferForm = ({transfering, setTransfering}) => {
                             return <option key={account.name+account.currency} value={JSON.stringify(account)}>{account.name}</option>
                         })}
                     </select>
-                    <p>{errors.targetAccount?.message}</p>
+                    <p className="font-text ml-1">{errors.targetAccount?.message}</p>
                 </div>
                 <button disabled={transfering} className="bg-primary text-white text-xl font-text py-4 rounded-xl hover:bg-primary-interact transition-all ease-in-out mt-8" type="submit">Transferir</button>
             </form>

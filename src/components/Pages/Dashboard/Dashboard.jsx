@@ -6,8 +6,9 @@ import { Waveform } from '@uiball/loaders'
 import ActivitiesBar from "./ActivitiesBar/ActivitiesBar";
 
 const Dashboard = () => {
+    const apiKey= import.meta.env.RATES_API_KEY
     const {data: currenciesData, isLoading} = useQuery(["cryptos"], () => {
-        return Axios.request('https://openexchangerates.org/api/latest.json?app_id=c0796e7967fd4da6979537610239de14&show_alternative=1').then(res => res.data)
+        return Axios.request(`https://openexchangerates.org/api/latest.json?app_id=${apiKey}&show_alternative=1`).then(res => res.data)
     })
     return (
         <>
@@ -18,8 +19,8 @@ const Dashboard = () => {
             ) : (
                 <div className="flex min-h-screen h-auto w-full">
                     <Sidebar />
-                    <Outlet context={currenciesData?.rates} />
                     <ActivitiesBar />
+                    <Outlet context={currenciesData?.rates} />
                 </div>
             )}
         </>

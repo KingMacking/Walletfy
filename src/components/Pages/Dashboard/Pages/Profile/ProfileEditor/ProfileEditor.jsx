@@ -105,17 +105,17 @@ const ProfileEditor = ({setIsUpdating, isEditing, setIsEditing}) => {
             <>
                 <form id="change-profile" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 w-full">
                     <div>
-                        <h3 className="font-text text-md md:text-xl mt-3 ml-1 mb-1">URL de la imagen</h3>
-                        <input className="font-text text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" type="url" {...register("thumbnail")} placeholder="www.photourl.com"/>
-                        <p>{errors.thumbnail?.message}</p>
+                        <h3 className="font-text text-md md:text-xl mt-3 ml-1 mb-1 dark:text-white">URL de la imagen</h3>
+                        <input className="font-text text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full dark:bg-blacker dark:text-white" type="url" {...register("thumbnail")} placeholder="www.photourl.com"/>
+                        <p className="font-text dark:text-white ml-1">{errors.thumbnail?.message}</p>
                     </div>
                     <div className={`${isEmpty ? "mb-0" : "mb-6"}`}>
-                        <h3 className="font-text text-md md:text-xl mt-3 ml-1 mb-1">Nombre visible</h3>
-                        <input className="font-text text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" type="text" {...register("displayName")} placeholder="Pedro Sanchez"/>
-                        <p>{errors.displayName?.message}</p>
+                        <h3 className="font-text text-md md:text-xl mt-3 ml-1 mb-1 dark:text-white">Nombre visible</h3>
+                        <input className="font-text text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full dark:bg-blacker dark:text-white" type="text" {...register("displayName")} placeholder="Pedro Sanchez"/>
+                        <p className="font-text dark:text-white ml-1">{errors.displayName?.message}</p>
                     </div>
                 </form>
-                {isEmpty && <p className="font-text text-2xl w-full text-center mb-4 mt-2">Debes ingresar por lo menos un cambio</p>}
+                {isEmpty && <p className="font-text text-2xl w-full text-center mb-4 mt-2 dark:text-white">Debes ingresar por lo menos un cambio</p>}
             </>
         </Modal>
     )

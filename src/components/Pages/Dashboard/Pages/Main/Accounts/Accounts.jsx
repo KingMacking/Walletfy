@@ -12,7 +12,7 @@ const Accounts = () => {
 
     return (
         <div className="p-6">
-            <h2 className="font-title text-4xl border-b-2 border-primary-interact mb-4">Tus cuentas</h2>
+            <h2 className="font-title text-4xl border-b-2 border-primary-interact mb-4 dark:text-white">Tus cuentas</h2>
             <div className="flex gap-6 flex-wrap justify-center md:justify-start">
                 {accounts?.length > 0 ? 
                     accounts.map((account) => {
@@ -21,8 +21,8 @@ const Accounts = () => {
                         )
                     }) : (
                         <div>
-                            <h2>No tienes ninguna cuenta registrada</h2>
-                            <Link to="/dashboard/accounts">Agregar cuenta</Link>
+                            <h2 className="font-title text-2xl mb-8 dark:text-white">No tienes ninguna cuenta registrada</h2>
+                            <Link className="bg-primary hover:bg-primary-interact p-4 rounded-lg text-white text-xl" to="/dashboard/accounts">Agregar cuenta</Link>
                         </div>
                     )
                 }

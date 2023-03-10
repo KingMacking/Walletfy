@@ -15,9 +15,9 @@ const accountCategoryIcon = (category) => {
 
 const AccountCard = ({account}) => {
     return (
-        <div className="flex flex-col shadow-lg rounded-xl bg-[#ffffff] p-4 min-w-[300px] w-full md:w-fit">
+        <div className="flex flex-col shadow-lg rounded-xl bg-real-white dark:bg-black dark:text-white p-4 min-w-[300px] w-full md:w-fit">
             <h2 className="flex gap-4 justify-start items-center font-title text-2xl border-b border-primary-interact py-2">
-                {<Icon className="text-white rounded-full bg-primary p-2 text-5xl" icon={accountCategoryIcon(account.category)} inline={true} />}
+                {<Icon className="text-white rounded-full bg-primary dark:bg-white dark:text-primary p-2 text-5xl" icon={accountCategoryIcon(account.category)} inline={true} />}
                 {account.name}
             </h2>
             <p className="font-text text-4xl mt-6">${(Math.round(account.balance *100) / 100).toFixed(2)} <span className="text-lg">{account.currency}</span></p>

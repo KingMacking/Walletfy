@@ -60,9 +60,9 @@ const ConfigurationEditor = ({setIsUpdating, isEditing, setIsEditing}) => {
     return (
         <Modal title="Actualizar configuraciones" id="change-config" show={isEditing} onClose={() => setIsEditing(false)} confirmButton={sendButton}>
             <>
-                <form id="change-config" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 w-full">
+                <form id="change-config" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 w-full dark:text-white">
                         <h3 className="font-text text-md md:text-xl mt-3 ml-1 mb-1">Moneda base</h3>
-                        <select className="font-text text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" {...register("currency", {onChange: (e) => {
+                        <select className="font-text text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full dark:bg-black" {...register("currency", {onChange: (e) => {
                             setValue("currency", e.target.value, {shouldValidate: true})
                         }})}>
                             <option value="">Selecciona una moneda</option>

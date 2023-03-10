@@ -7,7 +7,7 @@ import { getFirestore } from "firebase/firestore"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBVPFCSvhF6QUWkgag2iGrp4oQPjiyKaoA",
+    apiKey: import.meta.env.FIREBASE_API_KEY,
     authDomain: "walletfy-728ca.firebaseapp.com",
     projectId: "walletfy-728ca",
     storageBucket: "walletfy-728ca.appspot.com",

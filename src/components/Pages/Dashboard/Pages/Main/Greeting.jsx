@@ -16,7 +16,7 @@ const Greeting = () => {
     return (
         <div className="flex w-full justify-start items-center gap-6 p-6 max-w-[300px] sm:max-w-full">
             <img className="rounded-full w-12 sm:w-16" src={user.thumbnail} referrerPolicy="no-referrer" />
-            <h2 className="font-title font-bold text-2xl sm:text-3xl">{currentHour()}, {user.displayName.split(' ') ? user.displayName.split(' ')[0] : user.displayName}</h2>
+            <h2 className="font-title dark:text-white font-bold text-2xl sm:text-3xl">{currentHour()}, {user.displayName.split(' ') ? user.displayName.split(' ')[0] : user.displayName}</h2>
         </div>
     )
 }

@@ -62,20 +62,20 @@ const Register = () => {
     }
 
     return (
-        <div className="h-full py-10">
+        <div className="h-full py-10 bg-white dark:bg-blacker dark:text-white">
             <h2 className="mx-auto text-center font-title text-4xl border-b-2 w-fit border-primary px-3 py-2">Registrarse</h2>
-            <form className="bg-base flex flex-col px-5 py-8 mx-auto h-auto my-12 border border-primary rounded-2xl w-[300px] sm:w-[350px] md:w-[400px]" onSubmit={handleSubmit(submitRegister)}>
+            <form className="bg-real-white dark:bg-black flex flex-col px-5 py-8 mx-auto h-auto my-12 shadow-lg rounded-2xl w-[300px] sm:w-[350px] md:w-[400px]" onSubmit={handleSubmit(submitRegister)}>
                 {/*Email input*/}
                 <h3 className="font-text text-xl mt-3 ml-1">Email:</h3>
-                <input className="font-text text-xl py-2 border rounded-lg border-primary-interact px-3" type="email" {...register("email")} />
+                <input className="font-text text-xl py-2 border rounded-lg border-primary-interact px-3 dark:bg-black" type="email" {...register("email")} />
                 {errors.email && <p className="font-text text-primary-interact ml-1">{errors.email.message}</p>}
                 {/*Password input*/}
                 <h3 className="font-text text-xl mt-3 ml-1">Contraseña:</h3>
-                <input className="font-text text-xl py-2 border rounded-lg border-primary-interact px-3" type="password" {...register("password")} />
+                <input className="font-text text-xl py-2 border rounded-lg border-primary-interact px-3 dark:bg-black" type="password" {...register("password")} />
                 {errors.password && <p className="font-text text-primary-interact ml-1">{errors.password.message}</p>}
                 {/*Confirm password input*/}
                 <h3 className="font-text text-xl mt-3 ml-1">Confirmar contraseña:</h3>
-                <input className="font-text text-xl py-2 border rounded-lg border-primary-interact px-3" type="password" {...register("passwordConfirmation")} />
+                <input className="font-text text-xl py-2 border rounded-lg border-primary-interact px-3 dark:bg-black" type="password" {...register("passwordConfirmation")} />
                 {errors.passwordConfirmation && <p className="font-text text-primary-interact ml-1">{errors.passwordConfirmation.message}</p>}
                 {/*Submit button*/}
                 <button type="submit" className="bg-primary text-white text-xl font-text mt-8 py-4 rounded-xl hover:bg-primary-interact transition-all ease-in-out">Registrarse</button>

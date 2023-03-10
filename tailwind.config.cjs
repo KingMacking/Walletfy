@@ -8,9 +8,11 @@ module.exports = {
   theme: {
     colors: {
       "white": "#FDFDFF",
+      "real-white": "#FFFFFF",
       "primary": "#372274",
       "primary-interact": "#7A62B8",
-      "black" : "#171717",
+      "black" : "#212121",
+      "blacker": "#131313",
       "transparent": "transparent",
     },
     fontFamily: {
