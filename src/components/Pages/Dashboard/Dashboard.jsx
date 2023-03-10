@@ -6,7 +6,7 @@ import { Waveform } from '@uiball/loaders'
 import ActivitiesBar from "./ActivitiesBar/ActivitiesBar";
 
 const Dashboard = () => {
-    const apiKey= import.meta.env.RATES_API_KEY
+    const apiKey= import.meta.env.VITE_RATES_API_KEY
     const {data: currenciesData, isLoading} = useQuery(["cryptos"], () => {
         return Axios.request(`https://openexchangerates.org/api/latest.json?app_id=${apiKey}&show_alternative=1`).then(res => res.data)
     })
