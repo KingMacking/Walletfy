@@ -20,7 +20,7 @@ const AccountsListItem = ({account, canDelete, confirmDelete}) => {
     return (
         <li className="flex items-center gap-2 justify-between border-b border-primary-interact last:border-b-0 py-2">
             <div className="w-[4.65rem] md:w-40 font-text text-[10px] md:text-lg">{account.name}</div>
-            <div className="w-[4.1rem] md:w-40 font-text text-[10px] md:text-lg">{account.currency} ${(Math.round(userAccount.balance *100) / 100).toFixed(2)}</div>
+            <div className="w-[4rem] md:w-40 font-text text-[10px] md:text-lg">{account.currency} ${(Math.round(userAccount.balance *100) / 100).toFixed(2)}</div>
             <div className={`w-[1.5rem] md:w-28 font-text text-[10px] md:text-2xl flex ${canDelete ? "justify-center" : "justify-end"} items-center`}><Icon icon={accountCategoryIcon(account.category)} inline={true} /></div>
             {
                 canDelete &&    <div className="w-[2.3rem] md:w-28 font-text text-xl md:text-4xl flex items-center justify-end">
