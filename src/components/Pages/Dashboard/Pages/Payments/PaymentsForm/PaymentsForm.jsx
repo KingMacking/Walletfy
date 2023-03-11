@@ -26,6 +26,7 @@ const PaymentsForm = ({transfering, setTransfering}) => {
         const activity = {
             typeName: "payment",
             typeIcon: "majesticons:money-minus-line",
+            typeDescription: data.type,
             amount: data.balance,
             currency: baseAccount.currency,
             baseAccount: baseAccount.name,
@@ -95,9 +96,9 @@ const PaymentsForm = ({transfering, setTransfering}) => {
                     <select className="font-text dark:bg-black text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" {...register("type", {onChange: (e) => {
                         setValue("type", e.target.value, {shouldValidate: true})
                     }})}>
-                        <option value="">Seleccionar tipo de ingreso</option>
-                        {PAYMENTS_TYPES.map((income)=>{
-                            return <option key={income} value={income.toLowerCase()}>{income}</option>
+                        <option value="">Seleccionar tipo de pago</option>
+                        {PAYMENTS_TYPES.map((payment)=>{
+                            return <option key={payment} value={payment.toLowerCase()}>{payment}</option>
                         })}
                     </select>
                     <p className="font-text ml-1 dark:text-white">{errors.type?.message}</p>

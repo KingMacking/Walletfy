@@ -26,12 +26,13 @@ const IncomesForm = ({transfering, setTransfering}) => {
         const activity = {
             typeName: "income",
             typeIcon: "majesticons:money-plus-line",
+            typeDescription: data.type,
             amount: data.balance,
             currency: baseAccount.currency,
             baseAccount: baseAccount.name,
             reference: data.reference,
         }
-        if(user.lastActivities.length === 10) {
+        if(user.lastActivities.length > 0 && user.lastActivities?.length === 10) {
             user.lastActivities.shift()
             user.lastActivities.push(activity)
         } else {

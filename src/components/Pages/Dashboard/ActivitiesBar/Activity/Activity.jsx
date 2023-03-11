@@ -11,6 +11,8 @@ const accountTypeName = (category) => {
 }
 
 const Activity = ({activity}) => {
+    const activityDescription = activity.typeDescription && activity.typeDescription.charAt(0).toUpperCase() + activity.typeDescription.slice(1)
+    console.log(activityDescription);
     return (
         <div className="flex flex-col gap-1 border-b border-primary-interact py-4 last:border-b-0 px-2">
             <h4 className="font-title text-xl flex gap-2 items-center font-bold"><Icon className="rounded-full bg-primary text-white dark:bg-white dark:text-primary p-1 text-4xl" icon={activity.typeIcon} inline={true} />{accountTypeName(activity.typeName)}</h4>
@@ -24,6 +26,7 @@ const Activity = ({activity}) => {
                     </>
                 )}
             </div>
+            <p className="font-text text-sm">Tipo: {activityDescription}</p>
             {
                 activity.reference && <p className="font-text text-sm">Motivo: {activity.reference}</p>
             }

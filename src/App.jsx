@@ -48,7 +48,7 @@ function App() {
                     </Route>
                 </Routes>
             </QueryClientProvider>
-            <ToastContainer limit={5} />
+            <ToastContainer toastClassName="dark:bg-blacker dark:text-white" limit={5} />
             <Footer />
         </>
     );
