@@ -75,6 +75,7 @@ const TransferForm = ({transfering, setTransfering}) => {
             currency: base.currency,
             baseAccount: base.name,
             targetAccount: target.name,
+            reference: data.reference,
         }
         if(user.lastActivities.length === 10) {
             user.lastActivities.shift()

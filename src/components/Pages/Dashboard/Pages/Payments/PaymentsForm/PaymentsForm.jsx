@@ -29,6 +29,7 @@ const PaymentsForm = ({transfering, setTransfering}) => {
             amount: data.balance,
             currency: baseAccount.currency,
             baseAccount: baseAccount.name,
+            reference: data.reference,
         }
         if(updatedAccount.balance > 0) {
             if(user.lastActivities.length === 10) {

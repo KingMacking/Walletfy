@@ -29,6 +29,7 @@ const IncomesForm = ({transfering, setTransfering}) => {
             amount: data.balance,
             currency: baseAccount.currency,
             baseAccount: baseAccount.name,
+            reference: data.reference,
         }
         if(user.lastActivities.length === 10) {
             user.lastActivities.shift()
