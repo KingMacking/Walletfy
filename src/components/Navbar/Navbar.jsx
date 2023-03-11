@@ -51,7 +51,7 @@ const Navbar = () => {
                     </div>
     
                     {/*Mobile nav*/}
-                    <ul className={`md:hidden fixed w-full top-0 overflow-y-auto bg-white dark:bg-black bottom-0 gap-8 list-none py-24 pl-4 duration-200 ${open ? "left-0" : "left-[-100%]" }`}>
+                    <ul className={`md:hidden fixed w-full top-16 overflow-y-auto bg-white dark:bg-black bottom-0 gap-8 list-none py-24 pl-4 duration-200 ${open ? "left-0" : "left-[-100%]" }`}>
                         <li className="mt-7 px-5">
                             <Link className='hover:underline hover:decoration-primary underline-offset-8 transition-all ease-in-out font-text'>¿Como funciona?</Link>
                         </li>
