@@ -55,6 +55,7 @@ const Register = () => {
             thumbnail: userInfo.user.photoURL, 
             displayName: userInfo.user.displayName,
             accounts: [],
+            lastActivities: [],
             theme: 'dark',
             currency: 'ARS',
             uid: userInfo.user.uid
