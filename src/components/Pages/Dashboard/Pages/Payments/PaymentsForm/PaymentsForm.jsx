@@ -32,7 +32,7 @@ const PaymentsForm = ({transfering, setTransfering}) => {
             baseAccount: baseAccount.name,
             reference: data.reference,
         }
-        if(updatedAccount.balance > 0) {
+        if(updatedAccount.balance >= 0) {
             if(user.lastActivities.length === 10) {
                 user.lastActivities.shift()
                 user.lastActivities.push(activity)
