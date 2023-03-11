@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const generateAccountSchema = yup.object({
     name: yup.string().required("Nombre de la cuenta obligatorio"),
     category: yup.string().oneOf(["bank", "cash", "crypto", "virtual-wallet"], "Debes seleccionar una categoria").required("Elige la categoria de la cuenta"),
-    currency: yup.string().oneOf(["USD", "ARS", "EUR", "BTC", "ETH", "USDT", "BTC", "BNB", "USDC", "XRP", "ADA", "MATIC", "SOL"], "Debes seleccionar una moneda").required("Elige la moneda de la cuenta"),
+    currency: yup.string().oneOf(["USD", "ARS", "EUR", "BTC", "ETH", "USDT", "DOGE", "USDC", "XRP",], "Debes seleccionar una moneda").required("Elige la moneda de la cuenta"),
     balance: yup.number().positive("Ingresa un balance inicial valido").required("Debes ingresar un balance inicial").typeError("El campo ingresado debe ser un numero")
 })
 

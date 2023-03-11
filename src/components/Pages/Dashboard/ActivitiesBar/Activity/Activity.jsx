@@ -24,6 +24,9 @@ const Activity = ({activity}) => {
                     </>
                 )}
             </div>
+            {
+                activity.reference && <p className="font-text text-sm">Motivo: {activity.reference}</p>
+            }
         </div>
     )
 }

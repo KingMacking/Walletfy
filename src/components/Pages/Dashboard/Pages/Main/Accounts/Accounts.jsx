@@ -15,7 +15,7 @@ const Accounts = () => {
             <h2 className="font-title text-4xl border-b-2 border-primary-interact mb-4 dark:text-white">Tus cuentas</h2>
             <div className="flex gap-6 flex-wrap justify-center md:justify-start">
                 {accounts?.length > 0 ? 
-                    accounts.map((account) => {
+                    accounts.sort((a,b) => a.name.localeCompare(b.name)).map((account) => {
                         return (
                             <AccountCard key={account.name+account.currency} account={account} />
                         )

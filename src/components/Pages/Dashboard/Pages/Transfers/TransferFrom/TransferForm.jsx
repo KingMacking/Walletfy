@@ -22,7 +22,8 @@ const TransferForm = ({transfering, setTransfering}) => {
     const generateTransferSchema = yup.object({
         baseAccount: yup.string().required("Selecciona una cuenta origen"),
         balance: yup.number().positive("Ingresa un monto valido").max(baseAccount?.balance, "El monto ingresado es mayor al de la cuenta de origen").required("Debes ingresar un monto").typeError("El campo ingresado debe ser un numero"),
-        targetAccount: yup.string().required("Debes seleccionar una cuenta destino")
+        targetAccount: yup.string().required("Debes seleccionar una cuenta destino"),
+        reference: yup.string()
     })
 
     const {register, handleSubmit, setValue, formState: {errors}, reset} = useForm({resolver: yupResolver(generateTransferSchema)})
@@ -135,6 +136,11 @@ const TransferForm = ({transfering, setTransfering}) => {
                         })}
                     </select>
                     <p className="font-text ml-1">{errors.targetAccount?.message}</p>
+                </div>
+                <div>
+                    <h3 className="font-text text-md md:text-xl mt-3 ml-1">Referencia</h3>
+                    <input className="font-text dark:bg-black text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" type="text" {...register("reference")} placeholder="Pantalon, corte de pelo, bebdia..."/>
+                    <p className="font-text ml-1 dark:text-white">{errors.reference?.message}</p>
                 </div>
                 <button disabled={transfering} className="bg-primary text-white text-xl font-text py-4 rounded-xl hover:bg-primary-interact transition-all ease-in-out mt-8" type="submit">Transferir</button>
             </form>

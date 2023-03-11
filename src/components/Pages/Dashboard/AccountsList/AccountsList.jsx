@@ -36,7 +36,7 @@ const AccountsList = ({canDelete, transfering}) => {
                         {canDelete && <div className="w-[3.1rem] md:w-28 font-text text-sm md:text-lg text-end font-bold">Eliminar</div>}
                     </li>
                     {accounts?.length > 0 ? 
-                        accounts.map((account) => {
+                        accounts.sort((a,b) => a.name.localeCompare(b.name)).map((account) => {
                             return (
                                 <AccountsListItem account={account} key={account.name+account.currency} canDelete={canDelete} confirmDelete={confirmDelete} />
                             )

@@ -14,7 +14,8 @@ const IncomesForm = ({transfering, setTransfering}) => {
     const generateIncomeSchema = yup.object({
         baseAccount: yup.string().required("Selecciona una cuenta"),
         type: yup.string().required("Debes seleccionar una tipo"),
-        balance: yup.number().positive("Ingresa un monto valido").required("Debes ingresar un monto").typeError("El campo ingresado debe ser un numero")
+        balance: yup.number().positive("Ingresa un monto valido").required("Debes ingresar un monto").typeError("El campo ingresado debe ser un numero"),
+        reference: yup.string()
     })
 
     const {register, handleSubmit, setValue, formState: {errors}, reset} = useForm({resolver: yupResolver(generateIncomeSchema)})
@@ -95,6 +96,11 @@ const IncomesForm = ({transfering, setTransfering}) => {
                     <h3 className="font-text text-md md:text-xl mt-3 ml-1">Balance</h3>
                     <input className="font-text dark:bg-black text-md md:text-xl pt-2 border-b focus:outline-none border-primary-interact px-3 w-full" type="text" {...register("balance")} placeholder="123, 300, 4000..."/>
                     <p className="font-text ml-1 dark:text-white">{errors.balance?.message}</p>
+                </div>
+                <div>
+                    <h3 className="font-text text-md md:text-xl mt-3 ml-1">Referencia</h3>
+                    <input className="font-text dark:bg-black text-md md:text-xl py-2 border rounded-lg border-primary-interact px-3 w-full" type="text" {...register("reference")} placeholder="Pantalon, corte de pelo, bebdia..."/>
+                    <p className="font-text ml-1 dark:text-white">{errors.reference?.message}</p>
                 </div>
                 <button disabled={transfering && true} className="bg-primary text-white text-xl font-text py-4 rounded-xl hover:bg-primary-interact transition-all ease-in-out mt-8" type="submit">Registrar ingreso</button>
             </form>
